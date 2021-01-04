@@ -1,0 +1,29 @@
+{
+    "python.envFile": ${workspaceFolder},
+    "python.linting.enabled": true,
+    "python.formatting.provider": "black",
+    "python.formatting.blackArgs": [
+        "--max-line-length = 88",
+        "--extend-ignore=E203"
+    ],
+    "python.linting.flake8Enabled": true,
+    "python.sortImports.args": [
+        "--profile=black"
+    ],
+    "python.languageServer": "Pylance",
+    "python.analysis.typeCheckingMode": "basic",
+    "python.venvPath": "~/.virtualenvs",
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": true,
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": true,
+    },
+    "jupyter.notebookFileRoot": "${workspaceFolder}",
+    "jupyter.sendSelectionToInteractiveWindow": true,
+    "jupyter.runStartupCommands": [
+        "%config IPCompleter.use_jedi = False",
+        "%load_ext autoreload",
+        "%autoreload 2"
+    ],
+    "jupyter.changeDirOnImportExport": true,
+}
