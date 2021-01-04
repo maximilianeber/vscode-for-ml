@@ -17,7 +17,7 @@ Use [`pyenv`](https://github.com/pyenv/pyenv) to manage multiple Python installa
 
 ## Setting up virtual environments
 
-Each project should have its own virtual environment. The basic functionality is provided by Python's native `[venv](https://docs.python.org/3/tutorial/venv.html)`. The workflow for setting up a new project consists of:
+Each project should have its own virtual environment. The basic functionality is provided by Python's native [`venv`](https://docs.python.org/3/tutorial/venv.html). The workflow for setting up a new project consists of:
 
 - Setting up a `git` repo
 - Installing and activating the right python version, e.g. through `pyenv global 3.8.5`
