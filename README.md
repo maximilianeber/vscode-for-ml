@@ -1,5 +1,10 @@
 # Setting up VSCode for Developing Machine Learning Applications in Python
 
+## What you get from setting up the IDE this way
+- The IDE will help you catch errors early
+- The IDE will help you (and your team mates) write consistent code
+- The IDE will make you more productive
+
 ## Setting up the Python interpreter
 
 Use [`pyenv`](https://github.com/pyenv/pyenv) to manage multiple Python installations on your computer. You should never install packages into the your system's default Python installation. Instead, you can use `pyenv` to activate and deactivate different, isolated versions of Python.
@@ -32,17 +37,21 @@ There are multiple popular helpers for managing virtual environments, e.g. [`vir
 
 On Mac, you can use `CMD + Shift + P` to open the command palette. This is a good place to start whenever you don't know how to do something.
 
-Note: In this guide, I am going to use italics to indicate queries for the command palette, e.g. *>Python: Select Interpreter* refers to hitting `CMD + Shift + P` and then entering "Python: Select Interpreter". 
+Note: In this guide, I am going to use italics to indicate queries for the command palette, e.g. *>Python: Select Interpreter* refers to hitting `CMD + Shift + P` and then entering "Python: Select Interpreter".
 
-## Installing Pylance and selecting the Interpreter
+## Installing the official Python extension
 
-Pylance provides language-specific functionality for Python. VSCode will automatically prompt you to install it when opening a python file, but you can also [install it manually](https://marketplace.visualstudio.com/items?itemName=ms-python.vscode-pylance).
+The Python extension provides language-specific functionality for Python (syntax highlighting, linting, formatting, etc.). VSCode will normally prompt you to install it when opening a Python file, but you can also [install it manually](https://marketplace.visualstudio.com/items?itemName=ms-python.python).
 
-You also need to tell VSCode which Python interpreter to use for the project at hand (*>Python: Select Interpreter*). The interpreter is part of the virtual environment that you have created before. The IDE will then use that environment for analysing your code, running the debugger, and for the interactive window. 
+## Installing Pylance and selecting the right interpreter
+
+Pylance provides extended functionality for Python. You can install it through the [marketplace](https://marketplace.visualstudio.com/items?itemName=ms-python.vscode-pylance).
+
+You also need to tell VSCode which Python interpreter to use for the project at hand (*>Python: Select Interpreter*). The interpreter is part of the virtual environment that you have created before. The IDE will then use that environment for analysing your code, running the debugger, and for the interactive window.
 
 ## Environmental Variables
 
-Secrets and local configuration are typically handled in environmental variables. You can put a file called `.env` into your project's root directory and tell VSCode to set those variables everywhere by setting `python.envFile` to `${workspaceFolder}/.env` in your user or project settings. Never add secrets to version control.
+Secrets and local configuration are typically handled in environmental variables. Never add secrets to version control. You can put a file called `.env` into your project's root directory and tell VSCode to set those variables everywhere by setting `python.envFile` to `${workspaceFolder}/.env` in your user or project settings. This repo contains sample user settings (see section on the *Settings File* below).
 
 ## Interactive Window
 
@@ -74,41 +83,18 @@ You can automatically sort your imports with `isort` by through *Python Refactor
 
 Most projects will make use of Python's packaging system, i.e. contain a `setup.py` or [`pyproject.toml`](https://setuptools.readthedocs.io/en/latest/userguide/quickstart.html) at the root level. For a project in "src layout", you will usually install the package in editable mode through  `pip install --editable .`. Then, you can import from the package in any other python script or notebook (e.g. `from src.utils import foo`) and you won't need to re-install after editing the package (that's why it's called "editable" mode).
 
-# Settings File
+## Settings File
 
-Here's a pre-written user settings file that you can place into `~/Library/Application Support/Code/User/settings.json`:
+This repo contains a pre-written user settings file ([`settings.json`](settings.json) that you can place into `~/Library/Application Support/Code/User/settings.json`. All projects will inherit the user settings. Projects can extend/overwrite user settings by providing another file in the project directory under `.vscode/settings.json`. Pylance, for example, will automatically add an entry related to the location of the Python interpreter in the project settings.
 
-```
-{
-    "python.envFile": ${workspaceFolder},
-    "python.linting.enabled": true,
-    "python.formatting.provider": "black",
-    "python.formatting.blackArgs": [
-        "--max-line-length = 88",
-        "--extend-ignore=E203"
-    ],
-    "python.linting.flake8Enabled": true,
-    "python.sortImports.args": [
-        "--profile=black"
-    ],
-    "python.languageServer": "Pylance",
-    "python.analysis.typeCheckingMode": "basic",
-    "python.venvPath": "~/.virtualenvs",
-    "editor.formatOnSave": true,
-    "editor.formatOnPaste": true,
-    "editor.codeActionsOnSave": {
-        "source.organizeImports": true,
-    },
-    "jupyter.notebookFileRoot": "${workspaceFolder}",
-    "jupyter.sendSelectionToInteractiveWindow": true,
-    "jupyter.runStartupCommands": [
-        "%config IPCompleter.use_jedi = False",
-        "%load_ext autoreload",
-        "%autoreload 2"
-    ],
-    "jupyter.changeDirOnImportExport": true,
-}
-```
+## Checking if it works
+You can verify the following behavior to make sure everything works:
+- The IDE should notice unused imports
+- The IDE should automatically replace `x='abc'` with `x = "abc"` upon saving a file.
+- The IDE will automatically sorts imports, e.g. `import pandas as pd` is automatically moved below `import os`
+- Interactive mode starts with from root directory even if the file is in a subdirectory, e.g. you can interactively run a script `scripts/train.py` and still write `pd.read_csv("data/train.csv")`
+- `flake8` and `black` are compatible, i.e. a line that is 87 characters long is not flagged by `flake8` whereas a line that is 89 characters long is. `black` will try to break lines that are longer than 88 characters.
+- Unit tests with `pytest` work out of the box
 
 # Additional Topics and Extensions
 
