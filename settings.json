@@ -21,8 +21,8 @@
         "editor.formatOnSave": true,
         "editor.formatOnSaveMode": "file",
         "editor.codeActionsOnSave": {
-            "source.organizeImports": true,
-        },
+            "source.organizeImports": true
+        }
     },
     "jupyter.notebookFileRoot": "${workspaceFolder}",
     "jupyter.sendSelectionToInteractiveWindow": true,
