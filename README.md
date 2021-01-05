@@ -89,12 +89,12 @@ This repo contains a pre-written user settings file ([`settings.json`](settings.
 
 ## Checking if it works
 You can verify the following behavior to make sure everything works:
-- The IDE should notice unused imports
+- The IDE should notice unused imports.
 - The IDE should automatically replace `x='abc'` with `x = "abc"` upon saving a file.
-- The IDE will automatically sorts imports, e.g. `import pandas as pd` is automatically moved below `import os`
-- Interactive mode starts with from root directory even if the file is in a subdirectory, e.g. you can interactively run a script `scripts/train.py` and still write `pd.read_csv("data/train.csv")`
+- The IDE should automatically sorts imports, e.g. `import pandas as pd` is moved below `import os` upon saving.
+- Interactive mode starts with from root directory even if the file is in a subdirectory, e.g. you can interactively run a script `scripts/train.py` and still write `pd.read_csv("data/train.csv")`.
 - `flake8` and `black` are compatible, i.e. a line that is 87 characters long is not flagged by `flake8` whereas a line that is 89 characters long is. `black` will try to break lines that are longer than 88 characters.
-- Unit tests with `pytest` work out of the box
+- Unit tests with `pytest` work out of the box.
 
 # Additional Topics and Extensions
 
